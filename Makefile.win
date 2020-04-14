@@ -1,0 +1,30 @@
+# Copyright (C) JaeHyuk Cho <mailto:minzkn@minzkn.com>
+# All rights reserved.
+
+CC                           = cl.exe#
+LD                           = link.exe#
+RM                           = del /Q#
+
+THIS_NAME                    = hwport_ftpd#
+
+#CFLAGS                       = /nologo /I. /Os /W3 /EHsc /MT /Wp64 /TC /D__mzapi_import__=extern
+CFLAGS                       = /nologo /I. /Os /W3 /EHsc /MT /TC /D__mzapi_import__=extern /D_CRT_SECURE_NO_WARNINGS=1
+LDFLAGS                      = /nologo /LIBPATH:"." /OPT:REF /OPT:ICF /MACHINE:X86#
+
+TARGET_bin                   = $(THIS_NAME).exe#
+TARGET                       = $(TARGET_bin)#
+
+OBJECTS_bin                  = main.obj $(THIS_NAME).obj#
+OBJECTS                      = $(OBJECTS_bin)#
+
+DEPEND_lib                   = wsock32.lib ws2_32.lib#
+
+all: $(TARGET)
+clean: ; $(RM) *.obj *.exp *.lib *.dll $(TARGET)
+rebuild: clean all
+
+$(TARGET_bin): $(OBJECTS_bin) ; $(LD) $(LDFLAGS) /SUBSYSTEM:CONSOLE /OUT:"$(@)" $(OBJECTS_bin) $(DEPEND_lib)
+
+%.obj: %.c ; $(CC) $(CFLAGS) /c $(**)
+
+# End of Makefile.win
