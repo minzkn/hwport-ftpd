@@ -1,4 +1,5 @@
-# hwport-ftpd
-HWPORT FTP server library
+# 1s_complement
 
-My home page : https://www.minzkn.com/moniwiki/wiki.php/hwport_ftpd
+정수에서의 1의 보수체계에 대한 테스트
+
+1의 보수체계에 대한 특성을 간략히 이해하기 위한 예제소스

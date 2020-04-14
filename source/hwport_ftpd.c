@@ -3452,7 +3452,7 @@ static int hwport_ftpd_command_eprt(hwport_ftpd_session_t *s_session)
     (void)hwport_ftpd_data_close(s_session);
 
     (void)memset((void *)(&s_session->m_data_sockaddr_all), 0, sizeof(s_session->m_data_sockaddr_all));
-    s_family = hwport_ftpd_atoi(s_field[0]);
+    s_family = (hwport_ftpd_sockfamily_t)hwport_ftpd_atoi(s_field[0]);
     if(s_family == 1) {
         s_family = AF_INET;
         
@@ -3638,6 +3638,7 @@ static int hwport_ftpd_command_mkd(hwport_ftpd_session_t *s_session)
         int s_check;
 
         s_check = chown(s_path_abs, s_session->m_current_account->m_uid, s_session->m_current_account->m_gid);
+        (void)s_check;
     }
     
     free((void *)s_path_abs);
@@ -4611,7 +4612,7 @@ static int hwport_ftpd_list_buffer(hwport_ftpd_session_t *s_session, char *s_pat
         /* linkname */
         if(S_ISLNK(s_stat_ptr->st_mode) != 0) {
             char *s_temp;
-            int s_linkname_size;
+            ssize_t s_linkname_size;
 
             s_temp = (char *)malloc((size_t)(PATH_MAX + 1));
             if(s_temp != ((char *)0)) {
@@ -5024,6 +5025,7 @@ l_end_stream_3:;
             int s_check;
 
             s_check = chown(s_path, s_session->m_current_account->m_uid, s_session->m_current_account->m_gid);
+            (void)s_check;
         }
     }
 
